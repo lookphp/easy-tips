@@ -51,11 +51,11 @@
     if ($j === $length_2) {
       for ($w=$i; $w < $length_1; $w++) {
         $arr_3[$k] = $arr_1[$w];
-        ++$k;
       }
     }
     return $arr_3;
   }
+
 
   /**
    * 归并排序.
@@ -140,3 +140,190 @@
 
     return $value[0];
   }
+
+
+/* ----------------- 归并写法二 ------------------ */
+
+  $mergeFirst = function ($arr=array())
+  {
+      $len = count($arr);
+      $res = [];
+      for ($i = 0; $i < $len; $i += 2) {
+          $j = floor($i/2);
+          if (!isset($arr[$i + 1])) {
+              $res[$j][] = $arr[$i];
+              continue;
+          }
+          if ($arr[$i] < $arr[$i + 1]) {
+              $res[$j][] = $arr[$i];
+              $res[$j][] = $arr[$i + 1];
+              continue;
+          }
+          $res[$j][] = $arr[$i + 1];
+          $res[$j][] = $arr[$i];
+      }
+      return $res;
+  };
+
+  $mergeArray = function ($arr1, $arr2)
+  {
+      $len1 = count($arr1);
+      $len2 = count($arr2);
+      $arr3 = [];
+      $a = 0;
+      $b = 0;
+      $k = 0;
+      while ($a < $len1 && $b < $len2) {
+          if ($arr1[$a] < $arr2[$b]) {
+              $arr3[$k] = $arr1[$a];
+              $a++;
+              $k++;
+              continue;
+          }
+          $arr3[$k] = $arr2[$b];
+          $b++;
+          $k++;
+      }
+      if ($a === $len1) {
+          for ($i = $b; $i < $len2; $i++) {
+              $arr3[] = $arr2[$i];
+          }
+      }
+      unset($i);
+      if ($b === $len2) {
+          for ($i = $a; $i < $len1; $i++) {
+              $arr3[] = $arr1[$i];
+          }
+      }
+      return $arr3;
+  };
+
+  function sorta($arr=array(), $mergeFirst, $mergeArray)
+  {
+      if (count($arr) === 1) {
+          return $arr[0];
+      }
+      if (!is_array($arr[0])) {
+          $arr = $mergeFirst($arr);
+      }
+      $len = count($arr);
+      $arrNew = [];
+      for ($i=0; $i < $len; $i += 2) {
+          $j = floor($i/2);
+          if (!isset($arr[$i + 1])) {
+              $arrNew[$j] = $arr[$i];
+              continue;
+          }
+          $arrNew[$j] = $mergeArray($arr[$i], $arr[$i+1]);
+      }
+
+      $res = sorta($arrNew, $mergeFirst, $mergeArray);
+
+      return $res;
+  }
+
+/* ----------------- 归并写法 不是用递归 ------------------ */
+
+// 由于归并排序的主要情况是:
+// |  5  |  4  |  3  |  2  |  1  |
+//       /           \
+// | 5 | 4 |        | 3 | 2 | 1 |
+//     |                  |
+// |5|  |4|          |3|2| |1|
+//                     |
+//                   |3| |2|
+//       --分解完毕--
+// |4|  |5|          |3| |2| |1|
+//                        |
+//                   |1| |2| |3|
+//             |
+// |  1  |  2  |  3  |  4  |  5  |
+//
+//其实我是觉得可以不用递归作为分解,所以才写了这个东西
+function loopMerge($array){
+  $length = count($array);
+
+  if($length < 2){
+    return $array;
+  }
+
+  // 左边区域的左边界
+  $leftMin = 0;
+
+  // 左边区域的右边界
+  $leftMax = 0;
+  // 右边区域的左边界
+  $rightMin = 0;
+
+  // 右边区域的右边界
+  $rightMax = 0;
+
+  // 左边区域的移动标
+  $l = 0;
+
+  // 右边区域的移动标
+  $r = 0;
+
+  // 辅助数组
+  $tmp = array_fill(0, $length, 0);
+
+  // 辅助数组的移动标
+  $n = 0;
+
+  // 跨度
+  $group = 1;
+
+  while($group < $length){
+
+    $leftMin = 0;
+
+    while($leftMin + $group < $length){
+      $leftMax =  $leftMin + $group;
+      $rightMin = $leftMax;
+      if($rightMin + $group > $length){
+        $rightMax = $length;
+      }else{
+        $rightMax = $rightMin + $group;
+      }
+
+      $l = $leftMin;
+      $r = $rightMin;
+      $n = $leftMin;
+
+      // 这里是将左边区域的数值跟右边区域的数值进行比较,
+      // 并将小的数值放到辅助数组中
+      // 直到其中一边的区域的数值全部放到辅助数组中
+      while($l < $leftMax && $r < $rightMax){
+        if($array[$l] > $array[$r]){
+          $tmp[$n] = $array[$r];
+          $r++;
+        }else{
+          $tmp[$n] = $array[$l];
+          $l++;
+        }
+        $n++;
+      }
+
+      while($l < $leftMax){
+        $tmp[$n] = $array[$l];
+        $l++;
+        $n++;
+      }
+
+      while($r < $rightMax){
+        $tmp[$n] = $array[$r];
+        $r++;
+        $n++;
+      }
+
+      for($n = $leftMin; $n < $rightMax; $n++){
+        $array[$n] = $tmp[$n];
+      }
+      $leftMin += $group * 2 ;
+    }
+
+    $group *= 2;
+  }
+
+  return $array;
+}

@@ -24,9 +24,11 @@
 </a>
 </p>
 
+<p align="center"><a href="README-EN.md" >English</a></p>
+
 <br>
 
-> 一个php技术栈后端猿的知识储备大纲
+> 一个php技术栈后端猿的知识储备仓库
 
 ## 前言
 
@@ -46,10 +48,11 @@ fixing    | 查漏补缺修改中
 
 - PHP(doing)
 
-  - 符合PSR的PHP编程规范(含部分个人建议)
+  - 符合PSR的PHP编程规范(含个人建议)
 
     - [实例](https://github.com/TIGERB/easy-tips/blob/master/php/standard.php)
     - [文档](https://github.com/TIGERB/easy-tips/blob/master/php/standard.md)
+    - [经验](https://github.com/TIGERB/easy-tips/blob/master/php/artisan.md)
 
   - 基础知识[读(R)好(T)文(F)档(M)]
 
@@ -73,22 +76,37 @@ fixing    | 查漏补缺修改中
 - Mysql(doing)
 
   - [常用sql语句](https://github.com/TIGERB/easy-tips/blob/master/mysql/sql.md)
-  - 引擎
+  - [引擎](https://github.com/TIGERB/easy-tips/blob/master/mysql/base.md#引擎)
     - InnoDB
     - MyISAM
     - Memory
-    - Archive\Blackhole\CSV\Federated\merge\NDB
-  - 事务隔离级别
-    - READ UNCOMMITTED:未提交读
-    - READ COMMITTED：提交读/不可重复读
-    - REPEATABLE READ：可重复读(MYSQL默认事务隔离级别)
-    - SERIALIZEABLE：可串行化
-  - 索引
-    - B-Tree
-    - 哈希索引(hash index)
-    - 空间数据索引(R-Tree)
-    - 全文索引
-  - 锁
+    - Archive
+    - Blackhole\CSV\Federated\merge\NDB
+  - [事务](https://github.com/TIGERB/easy-tips/blob/master/mysql/base.md#事务)
+    + 原子性（Atomicity）
+    + 一致性（Consistency）
+    + [隔离性（Isolation）](https://github.com/TIGERB/easy-tips/blob/master/mysql/base.md#mysql数据库为我们提供的四种隔离级别)
+      * READ UNCOMMITTED:未提交读
+      * READ COMMITTED：提交读/不可重复读
+      * REPEATABLE READ：可重复读(MYSQL默认事务隔离级别)
+      * SERIALIZEABLE：可串行化
+    + 持久性（Durability）
+  - [索引](https://github.com/TIGERB/easy-tips/blob/master/mysql/base.md#索引)
+    + 建立表结构时添加的索引
+      * 主键唯一索引
+      * 唯一索引
+      * 普通索引
+      * 联合索引
+        - 最左匹配原则
+    + 依据是否聚簇区分
+      * 聚簇索引
+      * 非聚簇索引
+    + 索引底层数据结构
+      * hash索引
+      * b-tree索引
+      * b+tree索引
+    
+  - [锁](https://github.com/TIGERB/easy-tips/blob/master/mysql/base.md#锁)
     - 悲观锁
     - 乐观锁
   - 分表
@@ -118,7 +136,7 @@ fixing    | 查漏补缺修改中
     - [工厂模式](https://github.com/TIGERB/easy-tips/blob/master/patterns/factory/test.php)
     - [抽象工厂模式](https://github.com/TIGERB/easy-tips/blob/master/patterns/factoryAbstract/test.php)
     - [原型模式](https://github.com/TIGERB/easy-tips/blob/master/patterns/prototype/test.php)
-    - [建造者模式](https://github.com/TIGERB/easy-tips/blob/master/patterns/builder/test.php)
+    - [建造者模式](https://github.com/TIGERB/easy-tips/blob/master/patterns/produce/test.php)
 
   - 结构型模式实例
 
@@ -179,7 +197,7 @@ fixing    | 查漏补缺修改中
   - [互联网协议概述](https://github.com/TIGERB/easy-tips/blob/master/network/internet-protocol.md#互联网协议)
   - [client和nginx简易交互过程](https://github.com/TIGERB/easy-tips/blob/master/network/nginx.md#client和nginx简易交互过程)
   - [nginx和php-fpm简易交互过程](https://github.com/TIGERB/easy-tips/blob/master/network/nginx.md#nginx和php简易交互过程)
-  - http
+  - [http](https://github.com/TIGERB/easy-tips/blob/master/network/http.md)
     - 报文
       - 报文头部
       - 报文体
@@ -278,6 +296,16 @@ count值为：1
 
 > 补充:发起pull request的commit message请参考文章[Commit message编写指南](http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
 
+## 英文版
+
+因为国外开发者的要求和个人的时间有限，征集大家有兴趣的可以把本项目进行英文版翻译。希望国外的developer也可以受益于这个项目～
+
+翻译文件认领申请：<https://github.com/TIGERB/easy-tips/issues/36>
+
+## 赞赏
+
+<img src="money-qrcode.jpg" width="300px">
+
 ## 感谢
 
 感谢以下朋友的issue或pull request：
@@ -291,3 +319,10 @@ count值为：1
 - @[shellus](https://github.com/shellus)
 - @[entimm](https://github.com/entimm)
 - @[jealone](https://github.com/jealone)
+- @[cugblbs](https://github.com/cugblbs)
+- @[CmderQ](https://github.com/CmderQ)
+- @[neetdai](https://github.com/neetdai)
+- @[yangqiphp](https://github.com/yangqiphp)
+- @[akmumu](https://github.com/akmumu)
+- @[DukeAnn](https://github.com/DukeAnn)
+- @[onlyshow](https://github.com/onlyshow)

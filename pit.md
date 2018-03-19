@@ -93,6 +93,30 @@ ip2long函数
 
 ```
 
+```
+//json_encode 使用时的一个坑
+
+json_encode有中文时,需要加入JSON_UNESCAPED_UNICODE,json_encode($data, JSON_UNESCAPED_UNICODE); (PHP版本要求：必须PHP5.4+),否则中文会转义为Unicode编码。
+
+例如:
+$arr = array('a'=>'只有所有者有读和写的权' ,'b'=>'所有者有读和写的权限，组用户只有读的权限');
+echo json_encode($arr);
+
+1. 不加JSON_UNESCAPED_UNICODE时,结果为:
+{"a":"\u53ea\u6709\u6240\u6709\u8005\u6709\u8bfb\u548c\u5199\u7684\u6743","b":"\u6240\u6709\u8005\u6709\u8bfb\u548c\u5199\u7684\u6743\u9650\uff0c\u7ec4\u7528\u6237\u53ea\u6709\u8bfb\u7684\u6743\u9650"}
+
+2. 加了JSON_UNESCAPED_UNICODE时,结果为:{"a":"只有所有者有读和写的权","b":"所有者有读和写的权限，组用户只有读的权限"}
+```
+
+```
+// 记一个坑
+
+strpos函数
+- 查找字符串首次出现的位置，判断函数的返回值是否是整数时，应该使用"==="，而不能使用"==",因为这个函数可能返回布尔值 FALSE，
+但也可能返回等同于 FALSE 的非布尔值。比如，字符出现在第一个位置时。
+
+- 类似的函数还有，stripos(), strrpos(),strripos()。
+```
 ###### 技巧
 
 - linux
